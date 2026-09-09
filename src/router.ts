@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, type Router } from 'vue-router'
 import LoginView from './views/LoginView.vue'
 import AdminLayout from './layouts/AdminLayout.vue'
 import DashboardView from './views/DashboardView.vue'
@@ -32,6 +32,20 @@ export const router = createRouter({
     { path: '/:pathMatch(.*)*', redirect: '/' },
   ],
 })
+
+/**
+ * 会话过期时立即卸载受保护页面，避免已经加载的文档、Chunk 等租户数据继续留在 DOM 中。
+ * 使用 replace 防止用户通过浏览器“后退”回到已失效的管理页面。
+ */
+export function installAuthExpiryRedirect(targetRouter: Router, events: EventTarget): void {
+  events.addEventListener('knowledge-auth-expired', () => {
+    if (targetRouter.currentRoute.value.name !== 'login') {
+      void targetRouter.replace({ name: 'login', query: { reason: 'expired' } })
+    }
+  })
+}
+
+if (typeof window !== 'undefined') installAuthExpiryRedirect(router, window)
 
 router.beforeEach(async (to) => {
   if (to.meta.public) return true
