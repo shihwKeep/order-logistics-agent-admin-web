@@ -23,6 +23,7 @@ describe('LoginView', () => {
     expect(wrapper.text()).not.toContain('快快外卖 · 统一身份认证')
     expect(wrapper.text()).not.toContain('使用您在快快外卖应用中的管理员账号。')
     expect(wrapper.text()).not.toContain('会话仅保存在 HttpOnly Cookie 中，浏览器不会保存访问令牌。')
+    expect(wrapper.text()).not.toContain('统一管理商品、订单、物流与售后规则，构建可发布、可回滚、可追溯的企业知识。')
   })
 
   it('describes reliable knowledge Q&A in the hero title', async () => {
