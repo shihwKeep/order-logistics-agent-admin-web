@@ -33,7 +33,7 @@ watch(() => tenant.targetTenantId, loadBases)
     <section class="retrieval-console">
       <div class="retrieval-form">
         <label>测试问题</label><textarea v-model="question" rows="5" maxlength="2000" placeholder="例如：客户签收商品后多久可以申请退款？"></textarea>
-        <div class="form-row"><label>索引层<select v-model="layer"><option value="PUBLISHED">已发布（线上）</option><option value="DRAFT">草稿（诊断）</option></select></label><label>知识库范围<select multiple v-model="selected"><option v-for="item in bases" :key="item.id" :value="item.id">{{ item.name }}</option></select><small>不选择表示当前租户全部知识库</small></label></div>
+        <div class="form-row"><label class="index-layer-field">索引层<select v-model="layer"><option value="PUBLISHED">已发布（线上）</option><option value="DRAFT">草稿（诊断）</option></select></label><label>知识库范围<select multiple v-model="selected"><option v-for="item in bases" :key="item.id" :value="item.id">{{ item.name }}</option></select><small>不选择表示当前租户全部知识库</small></label></div>
         <button class="button button-primary button-wide" :disabled="busy || !question.trim()" @click="retrieve">{{ busy ? '正在混合检索…' : '运行检索' }}</button><p v-if="error" class="form-error">{{ error }}</p>
       </div>
       <div class="pipeline-map"><p class="eyebrow">PIPELINE</p><div><span>问题</span><i>→</i><span>ES Top 30</span><b>＋</b><span>Milvus Top 30</span><i>→</i><span>RRF Top 20</span><i>→</i><span>BGE Top 5</span></div></div>
