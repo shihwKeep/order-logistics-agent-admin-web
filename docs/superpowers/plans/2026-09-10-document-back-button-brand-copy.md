@@ -15,6 +15,7 @@
 **Files:**
 - Modify: `src/layouts/AdminLayout.test.ts`
 - Create: `src/views/DocumentDetailView.test.ts`
+- Create: `src/views/DocumentsView.test.ts`
 
 - [x] 编写测试，要求侧边栏渲染“知识库管理台”，并要求详情页返回链接指向文档列表且使用 `back-button` 类。
 - [x] 运行 `npm test -- src/layouts/AdminLayout.test.ts src/views/DocumentDetailView.test.ts`，确认测试因旧文案和缺少新样式类而失败。
@@ -24,6 +25,7 @@
 **Files:**
 - Modify: `src/layouts/AdminLayout.vue`
 - Modify: `src/views/DocumentDetailView.vue`
+- Modify: `src/views/DocumentsView.vue`
 - Modify: `src/styles.css`
 
 - [x] 将侧边栏副标题改为“知识库管理台”。

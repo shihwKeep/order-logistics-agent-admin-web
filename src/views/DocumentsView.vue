@@ -47,7 +47,7 @@ watch(() => tenant.targetTenantId, load)
 
 <template>
   <div class="page-stack">
-    <section class="page-heading"><div><RouterLink class="back-link" to="/knowledge-bases">← 返回知识库</RouterLink><p class="eyebrow">DOCUMENT PIPELINE</p><h2>文档与版本</h2><p>上传后将自动完成解析、OCR、分块和双索引构建。</p></div></section>
+    <section class="page-heading"><div><RouterLink class="back-button" to="/knowledge-bases"><span class="back-button-icon" aria-hidden="true">←</span><span>返回知识库</span></RouterLink><p class="eyebrow">DOCUMENT PIPELINE</p><h2>文档与版本</h2><p>上传后将自动完成解析、OCR、分块和双索引构建。</p></div></section>
     <section class="upload-panel">
       <div class="drop-zone" :class="{ active: dragActive }" @dragenter.prevent="dragActive = true" @dragleave.prevent="dragActive = false" @dragover.prevent @drop.prevent="dragActive = false; choose($event.dataTransfer?.files || null)">
         <div class="upload-icon">⇧</div><div><strong>{{ file?.name || '拖放文件到这里，或点击选择' }}</strong><span>PDF、DOCX、XLS/XLSX、CSV、PPTX、TXT、Markdown、HTML、PNG/JPG · 最大 100 MB</span></div>
