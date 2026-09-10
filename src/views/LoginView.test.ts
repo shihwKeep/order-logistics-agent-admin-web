@@ -25,6 +25,20 @@ describe('LoginView', () => {
     expect(wrapper.text()).not.toContain('会话仅保存在 HttpOnly Cookie 中，浏览器不会保存访问令牌。')
   })
 
+  it('describes reliable knowledge Q&A in the hero title', async () => {
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: [{ path: '/login', component: LoginView }],
+    })
+    await router.push('/login')
+    await router.isReady()
+
+    const wrapper = mount(LoginView, { global: { plugins: [router] } })
+
+    expect(wrapper.get('h1').text()).toBe('让每一次知识问答，都有可靠依据。')
+    expect(wrapper.get('h1').text()).not.toContain('坐席回答')
+  })
+
   it('uses the supplied knowledge logo for the login brand and browser tab', async () => {
     const router = createRouter({
       history: createMemoryHistory(),

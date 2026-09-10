@@ -31,7 +31,7 @@ async function submit() {
       <div class="story-content">
         <div class="brand brand-light"><img class="brand-logo" :src="brandLogoUrl" alt="" /><strong>享佳知识中枢</strong></div>
         <p class="eyebrow light">ENTERPRISE KNOWLEDGE</p>
-        <h1>让每一次坐席回答，<br />都有可靠依据。</h1>
+        <h1>让每一次知识问答，<br />都有可靠依据。</h1>
         <p>统一管理商品、订单、物流与售后规则，构建可发布、可回滚、可追溯的企业知识。</p>
         <div class="story-stats">
           <div><b>双路</b><span>混合召回</span></div><div><b>全程</b><span>版本追踪</span></div><div><b>严格</b><span>租户隔离</span></div>
