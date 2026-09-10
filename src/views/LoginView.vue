@@ -39,9 +39,7 @@ async function submit() {
     </section>
     <section class="login-panel">
       <form class="login-card" @submit.prevent="submit">
-        <p class="eyebrow">快快外卖 · 统一身份认证</p>
         <h2>登录管理台</h2>
-        <p class="muted">使用您在快快外卖应用中的管理员账号。</p>
         <label>账号</label>
         <input v-model="account" autocomplete="username" placeholder="请输入账号或工号" required />
         <label>密码</label>
@@ -50,7 +48,6 @@ async function submit() {
         <button class="button button-primary button-wide" type="submit" :disabled="auth.busy">
           {{ auth.busy ? '正在验证…' : '安全登录' }}
         </button>
-        <p class="security-note">会话仅保存在 HttpOnly Cookie 中，浏览器不会保存访问令牌。</p>
       </form>
     </section>
   </main>
