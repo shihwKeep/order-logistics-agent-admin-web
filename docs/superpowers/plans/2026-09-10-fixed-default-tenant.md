@@ -1,16 +1,16 @@
-# Fixed Default Tenant Implementation Plan
+# Default Tenant Switching Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 登录后固定进入租户 1“享佳健康”，不再出现租户选择流程。
+**Goal:** 登录后直接进入业务页面，并根据账号的最高权限决定是否允许切换租户。
 
-**Architecture:** 将固定租户配置集中在 Pinia 租户 Store 中，布局只消费该状态并直接渲染业务路由。现有 API 通过 `useTenantId()` 自动继承租户 1。
+**Architecture:** Pinia 租户 Store 根据完整角色集合计算租户上下文：超级管理员默认租户 1并可切换，系统管理员固定所属租户。现有 API 通过 `useTenantId()` 自动继承当前租户。
 
 **Tech Stack:** Vue 3、TypeScript、Pinia、Vitest、Vue Test Utils
 
 ---
 
-### Task 1: 固定租户上下文
+### Task 1: 按最高权限生成租户上下文
 
 **Files:**
 - Modify: `src/stores/tenant.test.ts`
@@ -18,23 +18,23 @@
 
 - [ ] **Step 1: Write the failing test**
 
-将超级管理员和普通管理员的断言统一为租户 ID `1`、名称“享佳健康”、无需选择。
+断言多角色账号只要包含超级管理员角色即可从默认租户 1切换；系统管理员固定身份租户。
 
 - [ ] **Step 2: Run test to verify it fails**
 
 Run: `npm test -- src/stores/tenant.test.ts`
-Expected: FAIL，因为当前普通管理员使用身份租户，超级管理员要求选择租户。
+Expected: FAIL，因为当前 Store 对所有角色都固定使用租户 1且没有切换能力。
 
 - [ ] **Step 3: Write minimal implementation**
 
-租户 Store 固定暴露 `targetTenantId = 1`、`targetTenantName = '享佳健康'`、`requiresSelection = false`。
+租户 Store 根据 `auth.isSuperAdmin` 决定使用可切换租户或身份租户，并保留登录后无需选择的行为。
 
 - [ ] **Step 4: Run test to verify it passes**
 
 Run: `npm test -- src/stores/tenant.test.ts`
 Expected: PASS
 
-### Task 2: 移除选择页并展示租户名称
+### Task 2: 在顶部提供超级管理员租户切换
 
 **Files:**
 - Create: `src/layouts/AdminLayout.test.ts`
@@ -42,16 +42,16 @@ Expected: PASS
 
 - [ ] **Step 1: Write the failing test**
 
-挂载布局并断言展示“享佳健康”，不展示“请选择目标租户”和“切换”。
+使用同时拥有系统管理员和超级管理员角色的身份挂载布局，断言默认显示“享佳健康”，点击切换后展示只含一个租户的下拉菜单。
 
 - [ ] **Step 2: Run test to verify it fails**
 
 Run: `npm test -- src/layouts/AdminLayout.test.ts`
-Expected: FAIL，因为当前布局展示“租户 1 切换”。
+Expected: FAIL，因为当前布局使用居中弹窗和手工租户 ID 输入框。
 
 - [ ] **Step 3: Write minimal implementation**
 
-移除 `TenantGate` 包裹与切换按钮，直接渲染 `RouterView`，将租户标识改为不可点击文字。
+超级管理员点击租户标识后在按钮下方展开租户菜单；系统管理员保持只读标识，不恢复登录后的租户选择页。
 
 - [ ] **Step 4: Run test to verify it passes**
 
@@ -79,4 +79,3 @@ Expected: PASS
 - [ ] **Step 3: Commit**
 
 提交测试、实现及设计文档，并推送到当前 GitHub 远端。
-

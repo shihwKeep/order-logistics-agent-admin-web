@@ -10,6 +10,7 @@ const route = useRoute()
 const router = useRouter()
 const collapsed = ref(false)
 const brandLogoUrl = '/knowledge-logo.png'
+const tenantDropdownOpen = ref(false)
 
 const nav = [
   { to: '/', icon: '⌂', label: '工作台' },
@@ -22,6 +23,12 @@ const title = computed(() => String(route.meta.title || nav.find((item) => item.
 async function logout() {
   await auth.logout()
   await router.replace('/login')
+}
+
+async function selectTenant(tenantId: number) {
+  tenant.select(tenantId)
+  tenantDropdownOpen.value = false
+  if (route.path !== '/') await router.push('/')
 }
 </script>
 
@@ -53,7 +60,32 @@ async function logout() {
           <h1>{{ title }}</h1>
         </div>
         <div class="topbar-spacer"></div>
-        <div class="tenant-chip">{{ tenant.targetTenantName }}</div>
+        <div v-if="auth.isSuperAdmin" class="tenant-control">
+          <button
+            class="tenant-chip"
+            type="button"
+            aria-haspopup="menu"
+            :aria-expanded="tenantDropdownOpen"
+            @click="tenantDropdownOpen = !tenantDropdownOpen"
+          >
+            {{ tenant.targetTenantName }} <span>切换</span>
+          </button>
+          <div v-if="tenantDropdownOpen" class="tenant-dropdown" role="menu">
+            <button
+              v-for="item in tenant.availableTenants"
+              :key="item.id"
+              class="tenant-option"
+              type="button"
+              role="menuitem"
+              :aria-current="item.id === tenant.targetTenantId"
+              @click="selectTenant(item.id)"
+            >
+              <span>{{ item.name }}</span>
+              <b v-if="item.id === tenant.targetTenantId">✓</b>
+            </button>
+          </div>
+        </div>
+        <div v-else class="tenant-chip">{{ tenant.targetTenantName }}</div>
         <div class="user-menu">
           <div class="avatar">{{ auth.identity?.displayName?.slice(0, 1) || '管' }}</div>
           <div><strong>{{ auth.identity?.displayName }}</strong><span>{{ auth.identity?.account }}</span></div>
