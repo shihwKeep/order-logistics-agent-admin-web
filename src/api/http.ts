@@ -45,6 +45,10 @@ export function clearSecurityContext(): void {
 }
 
 export async function apiRequest<T>(path: string, init: RequestInit = {}): Promise<T> {
+  return executeApiRequest(path, init, true)
+}
+
+async function executeApiRequest<T>(path: string, init: RequestInit, canRetryCsrf: boolean): Promise<T> {
   const method = (init.method || 'GET').toUpperCase()
   const headers = new Headers(init.headers)
   headers.set('Accept', 'application/json')
@@ -57,7 +61,15 @@ export async function apiRequest<T>(path: string, init: RequestInit = {}): Promi
     headers.set('Content-Type', 'application/json')
   }
   const response = await fetch(path, { ...init, method, headers, credentials: 'include' })
-  return (await parseEnvelope<T>(response)).data
+  try {
+    return (await parseEnvelope<T>(response)).data
+  } catch (error) {
+    if (canRetryCsrf && error instanceof ApiError && error.code === 'CSRF_INVALID') {
+      csrf = null
+      return executeApiRequest(path, init, false)
+    }
+    throw error
+  }
 }
 
 export const jsonBody = (value: unknown): string => JSON.stringify(value)
