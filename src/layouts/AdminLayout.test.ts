@@ -30,6 +30,8 @@ describe('AdminLayout tenant context', () => {
 
     expect(wrapper.text()).toContain('管理台首页')
     expect(wrapper.text()).toContain('享佳健康')
+    expect(wrapper.get('.brand-copy').text()).toContain('知识库管理台')
+    expect(wrapper.get('.brand-copy').text()).not.toContain('智能坐席管理台')
     expect(wrapper.text()).not.toContain('请选择目标租户')
     expect(wrapper.get('aside .brand img.brand-logo').attributes('src')).toBe('/knowledge-logo.png')
     expect(wrapper.find('aside .brand-mark').exists()).toBe(false)

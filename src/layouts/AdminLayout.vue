@@ -39,7 +39,7 @@ async function selectTenant(tenantId: number) {
         <img class="brand-logo" :src="brandLogoUrl" alt="" />
         <div class="brand-copy">
           <strong>享佳知识中枢</strong>
-          <span>智能坐席管理台</span>
+          <span>知识库管理台</span>
         </div>
       </div>
       <nav>

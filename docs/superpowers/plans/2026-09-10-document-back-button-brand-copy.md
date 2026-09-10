@@ -16,8 +16,8 @@
 - Modify: `src/layouts/AdminLayout.test.ts`
 - Create: `src/views/DocumentDetailView.test.ts`
 
-- [ ] 编写测试，要求侧边栏渲染“知识库管理台”，并要求详情页返回链接指向文档列表且使用 `back-button` 类。
-- [ ] 运行 `npm test -- src/layouts/AdminLayout.test.ts src/views/DocumentDetailView.test.ts`，确认测试因旧文案和缺少新样式类而失败。
+- [x] 编写测试，要求侧边栏渲染“知识库管理台”，并要求详情页返回链接指向文档列表且使用 `back-button` 类。
+- [x] 运行 `npm test -- src/layouts/AdminLayout.test.ts src/views/DocumentDetailView.test.ts`，确认测试因旧文案和缺少新样式类而失败。
 
 ### Task 2: 实现文案和返回按钮
 
@@ -26,17 +26,17 @@
 - Modify: `src/views/DocumentDetailView.vue`
 - Modify: `src/styles.css`
 
-- [ ] 将侧边栏副标题改为“知识库管理台”。
-- [ ] 将返回链接拆分为箭头图标和文字，并应用 `back-button` 类。
-- [ ] 添加紧凑圆角按钮、悬停及 `focus-visible` 样式。
-- [ ] 重跑定向测试并确认通过。
+- [x] 将侧边栏副标题改为“知识库管理台”。
+- [x] 将返回链接拆分为箭头图标和文字，并应用 `back-button` 类。
+- [x] 添加紧凑圆角按钮、悬停及 `focus-visible` 样式。
+- [x] 重跑定向测试并确认通过。
 
 ### Task 3: 完整验证与提交
 
 **Files:**
 - Verify: all frontend files
 
-- [ ] 运行 `npm test`。
-- [ ] 运行 `npm run build`。
-- [ ] 检查当前开发服务仍运行在 5174 端口。
-- [ ] 提交并推送到 GitHub `main`。
+- [x] 运行 `npm test`。
+- [x] 运行 `npm run build`。
+- [x] 检查当前开发服务仍运行在 5174 端口。
+- [x] 提交并推送到 GitHub `main`。
