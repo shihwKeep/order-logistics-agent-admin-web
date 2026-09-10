@@ -6,6 +6,7 @@ import { useAuthStore } from '../stores/auth'
 
 const account = ref('')
 const password = ref('')
+const showPassword = ref(false)
 const error = ref('')
 const brandLogoUrl = '/knowledge-logo.png'
 const auth = useAuthStore()
@@ -43,7 +44,24 @@ async function submit() {
         <label>账号</label>
         <input v-model="account" autocomplete="username" placeholder="请输入账号或工号" required />
         <label>密码</label>
-        <input v-model="password" type="password" autocomplete="current-password" placeholder="请输入密码" required />
+        <div class="password-field">
+          <input
+            v-model="password"
+            :type="showPassword ? 'text' : 'password'"
+            autocomplete="current-password"
+            placeholder="请输入密码"
+            required
+          />
+          <button
+            class="password-toggle"
+            type="button"
+            :aria-label="showPassword ? '隐藏密码' : '显示密码'"
+            :title="showPassword ? '隐藏密码' : '显示密码'"
+            @click="showPassword = !showPassword"
+          >
+            {{ showPassword ? '隐藏' : '显示' }}
+          </button>
+        </div>
         <p v-if="error" class="form-error">{{ error }}</p>
         <button class="button button-primary button-wide" type="submit" :disabled="auth.busy">
           {{ auth.busy ? '正在验证…' : '安全登录' }}

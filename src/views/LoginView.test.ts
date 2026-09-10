@@ -71,4 +71,26 @@ describe('LoginView', () => {
     await vi.waitFor(() => expect(router.currentRoute.value.path).toBe('/'))
     expect(wrapper.find('input[name="token"]').exists()).toBe(false)
   })
+
+  it('toggles password visibility without changing its value', async () => {
+    const router = createRouter({
+      history: createMemoryHistory(),
+      routes: [{ path: '/login', component: LoginView }],
+    })
+    await router.push('/login')
+    await router.isReady()
+    const wrapper = mount(LoginView, { global: { plugins: [router] } })
+    const passwordInput = wrapper.get('input[autocomplete="current-password"]')
+
+    await passwordInput.setValue('secret')
+    expect(passwordInput.attributes('type')).toBe('password')
+
+    await wrapper.get('button[aria-label="显示密码"]').trigger('click')
+    expect(passwordInput.attributes('type')).toBe('text')
+    expect((passwordInput.element as HTMLInputElement).value).toBe('secret')
+
+    await wrapper.get('button[aria-label="隐藏密码"]').trigger('click')
+    expect(passwordInput.attributes('type')).toBe('password')
+    expect((passwordInput.element as HTMLInputElement).value).toBe('secret')
+  })
 })
