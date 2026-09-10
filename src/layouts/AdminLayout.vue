@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import TenantGate from '../components/TenantGate.vue'
 import { useAuthStore } from '../stores/auth'
 import { useTenantStore } from '../stores/tenant'
 
@@ -53,18 +52,14 @@ async function logout() {
           <h1>{{ title }}</h1>
         </div>
         <div class="topbar-spacer"></div>
-        <button v-if="auth.isSuperAdmin" class="tenant-chip" @click="tenant.selectedTenantId = null">
-          租户 {{ tenant.targetTenantId ?? '未选择' }} <span>切换</span>
-        </button>
+        <div class="tenant-chip">{{ tenant.targetTenantName }}</div>
         <div class="user-menu">
           <div class="avatar">{{ auth.identity?.displayName?.slice(0, 1) || '管' }}</div>
           <div><strong>{{ auth.identity?.displayName }}</strong><span>{{ auth.identity?.account }}</span></div>
           <button class="link-button" @click="logout">退出</button>
         </div>
       </header>
-      <TenantGate>
-        <div class="page-container"><RouterView /></div>
-      </TenantGate>
+      <div class="page-container"><RouterView /></div>
     </main>
   </div>
 </template>
