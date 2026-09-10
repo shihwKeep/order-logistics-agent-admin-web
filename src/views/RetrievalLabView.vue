@@ -36,7 +36,7 @@ watch(() => tenant.targetTenantId, loadBases)
         <div class="form-row"><label class="index-layer-field">索引层<select v-model="layer"><option value="PUBLISHED">已发布（线上）</option><option value="DRAFT">草稿（诊断）</option></select></label><label>知识库范围<select multiple v-model="selected"><option v-for="item in bases" :key="item.id" :value="item.id">{{ item.name }}</option></select><small>不选择表示当前租户全部知识库</small></label></div>
         <button class="button button-primary button-wide" :disabled="busy || !question.trim()" @click="retrieve">{{ busy ? '正在混合检索…' : '运行检索' }}</button><p v-if="error" class="form-error">{{ error }}</p>
       </div>
-      <div class="pipeline-map"><p class="eyebrow">PIPELINE</p><div><span>问题</span><i>→</i><span>ES Top 30</span><b>＋</b><span>Milvus Top 30</span><i>→</i><span>RRF Top 20</span><i>→</i><span>BGE Top 5</span></div></div>
+      <div class="pipeline-map"><p class="eyebrow">PIPELINE</p><div><span>问题</span><i>→</i><span>ES Top 30</span><b>＋</b><span>Milvus Top 30</span><i>→</i><span>RRF Top 10</span><i>→</i><span>BGE Top 5</span></div></div>
     </section>
     <section v-if="result" class="panel">
       <div class="diagnostic-summary"><div><span>是否可回答</span><b :class="result.answerable ? 'text-success' : 'text-danger'">{{ result.answerable ? '可以回答' : '证据不足' }}</b></div><div><span>结果码</span><b>{{ result.resultCode }}</b></div><div><span>降级模式</span><b>{{ result.degradationMode }}</b></div><div><span>策略版本</span><b>{{ result.strategyVersion }}</b></div></div>

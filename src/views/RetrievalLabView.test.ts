@@ -28,4 +28,11 @@ describe('RetrievalLabView', () => {
     expect(getComputedStyle(field.element).alignSelf).toBe('start')
     expect(getComputedStyle(selector.element).height).toBe('44px')
   })
+
+  it('shows the configured RRF candidate limit', () => {
+    const wrapper = mount(RetrievalLabView)
+
+    expect(wrapper.get('.pipeline-map').text()).toContain('RRF Top 10')
+    expect(wrapper.get('.pipeline-map').text()).not.toContain('RRF Top 20')
+  })
 })
