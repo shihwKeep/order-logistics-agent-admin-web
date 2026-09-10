@@ -9,6 +9,7 @@ const tenant = useTenantStore()
 const route = useRoute()
 const router = useRouter()
 const collapsed = ref(false)
+const brandLogoUrl = '/knowledge-logo.png'
 
 const nav = [
   { to: '/', icon: '⌂', label: '工作台' },
@@ -28,7 +29,7 @@ async function logout() {
   <div class="app-shell" :class="{ collapsed }">
     <aside class="sidebar">
       <div class="brand">
-        <div class="brand-mark">享</div>
+        <img class="brand-logo" :src="brandLogoUrl" alt="" />
         <div class="brand-copy">
           <strong>享佳知识中枢</strong>
           <span>智能坐席管理台</span>
