@@ -64,7 +64,7 @@ watch(() => tenant.targetTenantId, load)
         <RouterLink v-for="item in items" :key="item.id" class="document-card" :to="`/knowledge-bases/${knowledgeBaseId}/documents/${item.id}`">
           <div class="doc-type">{{ version(item)?.originalFilename.split('.').pop()?.toUpperCase() || 'DOC' }}</div>
           <div class="doc-main"><strong>{{ item.title }}</strong><span>{{ version(item)?.originalFilename }}</span><small>更新于 {{ new Date(item.updatedAt).toLocaleString('zh-CN') }}</small></div>
-          <div class="doc-meta"><StatusBadge :value="version(item)?.status || 'UNKNOWN'" /><small>草稿 v{{ version(item)?.versionNumber || '—' }} · {{ version(item)?.chunkCount || 0 }} Chunks</small></div><span class="chevron">›</span>
+          <div class="doc-meta"><StatusBadge :value="version(item)?.status || '未知版本'" /><small v-if="version(item)">草稿 v{{ version(item)?.versionNumber }} · {{ version(item)?.chunkCount }} Chunks</small></div><span class="chevron">›</span>
         </RouterLink>
       </div>
     </section>
