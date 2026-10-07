@@ -4,7 +4,7 @@
 
 ## 安全边界
 
-- 登录由 Knowledge Service 代理 SSPX“快快外卖”认证。
+- 登录由 Knowledge Service 代理 SSPX认证。
 - 浏览器只持有 HttpOnly 会话 Cookie，不在 LocalStorage、SessionStorage 或 JavaScript 中保存访问令牌。
 - 所有写请求先获取 CSRF Token，并携带独立 `X-Request-Id`。
 - 系统管理员固定使用身份所属租户；超级管理员必须显式选择目标租户。
